@@ -1,4 +1,4 @@
-package service.user;
+package service.userService;
 
 import model.account.Users;
 import service.IGenericService;

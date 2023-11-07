@@ -1,6 +1,12 @@
 package model.account;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import java.io.Serializable;
+
+import static config.Color.*;
+import static config.Color.RESET;
+import static config.Format.formatMoney;
 
 public class Users implements Serializable {
     private int id;
@@ -102,16 +108,8 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", status=" + (status ? "Mở" : "Khóa") +
-                ", role=" + role +
-                '}';
+        return String.format(BLUE+"|"+RESET+"   %-5d   |     %-20s   |   %-20s   |   %-20s   |   %-20s   |   %-15s   |   %-5s   |    %-15s    "+BLUE+"|"+RESET,
+                id, name, username, password, email, phoneNumber, role, (status ? GREEN+"Mở"+RESET : RED+"Khóa"+RESET));
     }
 
     @Override

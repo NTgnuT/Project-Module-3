@@ -12,6 +12,10 @@ public class Config<T> {
     public static final String URL_USERS = "src/data/users.txt";
     public static final String URL_LOGIN = "src/data/userLogin.txt";
     public static final String URL_CATEGORY = "src/data/category.txt";
+    public static final String URL_PRODUCT = "src/data/product.txt";
+    public static final String URL_CART = "src/data/cart.txt";
+    public static final String URL_ORDER = "src/data/order.txt";
+
     public void writeFile(String PATH_FILE, T t) {
         File file = new File(PATH_FILE);
         try {

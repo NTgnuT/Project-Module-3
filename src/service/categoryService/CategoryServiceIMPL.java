@@ -1,9 +1,8 @@
-package service.category;
+package service.categoryService;
 
 import config.Config;
 import model.category.Category;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

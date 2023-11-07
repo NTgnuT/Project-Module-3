@@ -1,4 +1,4 @@
-package service.user;
+package service.userService;
 
 import config.Config;
 import model.account.RoleName;
