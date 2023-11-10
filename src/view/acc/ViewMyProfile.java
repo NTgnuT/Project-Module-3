@@ -11,7 +11,7 @@ import static config.Color.RESET;
 
 public class ViewMyProfile {
     IUserService iUserService = new UserServiceIMPL();
-    public static Users userLogin = (Users) new Config<>().readFile(Config.URL_LOGIN);
+    public static Users userLogin = new Config<Users>().readFile(Config.URL_LOGIN);
 
 
     public void menuProfile() {
@@ -95,13 +95,16 @@ public class ViewMyProfile {
         switch (Validate.validateInt()) {
             case 1:
                 System.out.println("Nhập tên người dùng bạn muốn thay đổi: ");
-                String name = Validate.validateString();
-                userLogin.setName(name);
+//                System.out.println(userLogin);
+//                String name = Validate.validateString();
+                userLogin.setName(Validate.validateString());
+//                System.out.println(userLogin);
                 break;
             case 2:
                 System.out.println("Nhập tên đăng nhập bạn muốn thay đổi: ");
+                String username;
                 while (true) {
-                    String username = Validate.validateString();
+                    username = Validate.validateString();
                     if (iUserService.existUsername(username)) {
                         System.out.println(RED+"Tên đăng nhập đã tồn tại, vui lòng nhập lại"+RESET);
                     } else {
@@ -112,8 +115,9 @@ public class ViewMyProfile {
                 break;
             case 3:
                 System.out.println("Nhập email bạn muốn thay đổi: ");
+                String email;
                 while (true) {
-                    String email = Validate.validateString();
+                    email = Validate.validateString();
                     if (iUserService.existEmail(email)) {
                         System.out.println(RED+"Email đã tồn tại, vui lòng nhập lại"+RESET);
                     } else {
@@ -124,18 +128,16 @@ public class ViewMyProfile {
                 break;
             case 4:
                 System.out.println("Nhập số điện thoại bạn muốn thay đổi: ");
-                String phoneNumber = Validate.validatePhoneNumber();
-                userLogin.setPhoneNumber(phoneNumber);
+//                String phoneNumber = Validate.validatePhoneNumber();
+                userLogin.setPhoneNumber(Validate.validatePhoneNumber());
                 break;
             default:
                 System.out.println(RED+"Lựa chọn không hợp lệ. Vui lòng chọn lại."+RESET);
-                break;
-
+                return;
         }
-        iUserService.save(userLogin);
         new Config<>().writeFile(Config.URL_LOGIN,userLogin);
+        iUserService.save(userLogin);
         System.out.println(YELLOW+"Thay đổi thông tin thành công"+RESET);
-
     }
 
     private void showProfile() {
@@ -143,7 +145,7 @@ public class ViewMyProfile {
         System.out.println(BLUE + "+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+");
         System.out.println("| " + RESET + "   ID     |          HỌ VÀ TÊN         |       TÊN ĐĂNG NHẬP      |          MẬT KHẨU        |           EMAIL          |    SỐ ĐIỆN THOẠI    |   QUYỀN   | TRẠNG THÁI " + BLUE + "|");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+" + RESET);
-        System.out.println(userLogin);
+        System.out.println( new Config<>().readFile(Config.URL_LOGIN));
         System.out.println(BLUE + "+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+" + RESET);
         System.out.println(" ");
     }

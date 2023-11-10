@@ -24,6 +24,7 @@ public class Config<T> {
             oos.writeObject(t);
             oos.close();
             fos.close();
+            oos.flush();
         } catch (Exception e) {
             System.out.println("Lỗi ghi file!!!");
         }

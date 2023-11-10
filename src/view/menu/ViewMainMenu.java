@@ -89,7 +89,7 @@ public class ViewMainMenu {
                 // Chuyển sang trang admin
                 new ViewRoleAdmin().menuAdmin();
             } else {
-                userLogin = users;
+//                userLogin = users;
                 config.writeFile(Config.URL_LOGIN, users);
                 // Chuyển đến trang user
                 System.out.println(YELLOW+"Đăng nhập thành công"+RESET);

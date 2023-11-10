@@ -87,6 +87,7 @@ public class ViewRoleUser {
                     break;
                 case 0:
                     new Config<Users>().writeFile(Config.URL_LOGIN, null);
+//                    ViewMyProfile.userLogin = null;
                     new ViewMainMenu().menuHome();
                     break;
                 default:

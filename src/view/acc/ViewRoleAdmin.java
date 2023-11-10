@@ -3,6 +3,9 @@ package view.acc;
 import config.Config;
 import config.Validate;
 import model.account.Users;
+import model.product.Product;
+import service.productService.IProductService;
+import service.productService.ProductServiceIMPL;
 import view.category.ViewCategory;
 import view.menu.ViewMainMenu;
 import view.order.ViewOrderForAdmin;
@@ -12,20 +15,23 @@ import static config.Color.*;
 import static config.Color.RESET;
 
 public class ViewRoleAdmin {
+    IProductService iProductService = new ProductServiceIMPL();
+
     public void menuAdmin() {
         do {
-            System.out.println(BLUE+"+------------------------------------------------------------------------+" + RESET);
-            System.out.printf(BLUE+"|"+RESET+"   \uD83E\uDD7E \uD83D\uDC5F "+YELLOW_BRIGHT+"T.SHOE"+RESET+" \uD83D\uDC5F \uD83D\uDC5E                           Xin chào: %-20s \n" , new Config<Users>().readFile(Config.URL_LOGIN).getName() +" "+ BLUE + "      |");
+            System.out.println(BLUE + "+------------------------------------------------------------------------+" + RESET);
+            System.out.printf(BLUE + "|" + RESET + "   \uD83E\uDD7E \uD83D\uDC5F " + YELLOW_BRIGHT + "T.SHOE" + RESET + " \uD83D\uDC5F \uD83D\uDC5E                           Xin chào: %-20s \n", new Config<Users>().readFile(Config.URL_LOGIN).getName() + " " + BLUE + "      |");
             System.out.println("+------------------------------------------------------------------------+");
-            System.out.println("|"+RESET+"                             TRANG CHỦ ADMIN                            "+BLUE+"|");
+            System.out.println("|" + RESET + "                             TRANG CHỦ ADMIN                            " + BLUE + "|");
             System.out.println("+------------------------------------------------------------------------+");
-            System.out.println("|"+RESET+"                       1. \uD83D\uDCC1 Quản lý danh mục                           "+BLUE+"|");
-            System.out.println("|"+RESET+"                       2. \uD83D\uDCE6 Quản lý sản phẩm                           "+BLUE+"|");
-            System.out.println("|"+RESET+"                       3. \uD83D\uDCDD Quản lý đơn hàng                           "+BLUE+"|");
-            System.out.println("|"+RESET+"                       4. \uD83D\uDC64 Quản lý người dùng                         "+BLUE+"|");
-            System.out.println("|"+RESET+"                       5. \uD83D\uDCD3 Hồ sơ người dùng                           "+BLUE+"|");
-            System.out.println("|"+RESET+"                       0. \uD83D\uDEAA Đăng xuất                                  "+BLUE+"|");
-            System.out.println("+------------------------------------------------------------------------+" +RESET);
+            System.out.println("|" + RESET + "                       1. \uD83D\uDCC1 Quản lý danh mục                           " + BLUE + "|");
+            System.out.println("|" + RESET + "                       2. \uD83D\uDCE6 Quản lý sản phẩm                           " + BLUE + "|");
+            System.out.println("|" + RESET + "                       3. \uD83D\uDCDD Quản lý đơn hàng                           " + BLUE + "|");
+            System.out.println("|" + RESET + "                       4. \uD83D\uDC64 Quản lý người dùng                         " + BLUE + "|");
+            System.out.println("|" + RESET + "                       5. \uD83D\uDCD3 Hồ sơ người dùng                           " + BLUE + "|");
+            System.out.println("|" + RESET + "                       5. \uD83D\uDCD3 Giảm giá sản phẩm                          " + BLUE + "|");
+            System.out.println("|" + RESET + "                       0. \uD83D\uDEAA Đăng xuất                                  " + BLUE + "|");
+            System.out.println("+------------------------------------------------------------------------+" + RESET);
             System.out.print("Nhập lựa chọn của bạn: ");
 
             switch (Validate.validateInt()) {
@@ -44,14 +50,26 @@ public class ViewRoleAdmin {
                 case 5:
                     new ViewMyProfile().menuProfile();
                     break;
+                case 6 :
+                    giamGia();
                 case 0:
                     new Config<Users>().writeFile(Config.URL_LOGIN, null);
+//                    ViewMyProfile.userLogin = null;
                     new ViewMainMenu().menuHome();
                     break;
                 default:
-                    System.out.println(RED+"Lựa chọn không hợp lệ. Vui lòng chọn lại."+RESET);
+                    System.out.println(RED + "Lựa chọn không hợp lệ. Vui lòng chọn lại." + RESET);
                     break;
             }
         } while (true);
+    }
+
+    private void giamGia() {
+        System.out.println("Nhập vào số bạn muốn giảm giá sản phẩm ");
+        int n = Validate.validateInt();
+
+        for (Product product : iProductService.findAll()) {
+            product.setUnitPrice(product.getUnitPrice() * (1-(n / 100)) );
+        }
     }
 }
